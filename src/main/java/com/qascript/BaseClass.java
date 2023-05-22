@@ -1,21 +1,21 @@
 package com.qascript;
 
 import com.qascript.utils.PropertyUtil;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import static com.qascript.utils.GetBrowserDriver.getBrowserDriver;
 
 import java.util.Properties;
 
 public class BaseClass {
     public static WebDriver driver;
+    static Properties appProperties = PropertyUtil.loadApplicationProperties();
+    static Properties frameworkProperties = PropertyUtil.loadFrameworkProperties();
 
     public static void initializeDriver() {
-        Properties properties = PropertyUtil.loadApplicationProperties();
-        String url = properties.get("applicationURL").toString();
-//        System.out.println(url);
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        String url = appProperties.get("applicationURL").toString();
+        String browser = frameworkProperties.getProperty("browser.driver");
+        driver = getBrowserDriver(browser);
         driver.get(url);
         driver.manage().window().maximize();
     }

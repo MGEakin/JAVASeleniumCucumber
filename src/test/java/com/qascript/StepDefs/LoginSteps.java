@@ -1,6 +1,7 @@
 package com.qascript.StepDefs;
 
 import com.qascript.BaseClass;
+import com.qascript.PageObjects.HomePage;
 import com.qascript.PageObjects.LoginPage;
 import com.qascript.utils.PropertyUtil;
 import io.cucumber.java.en.And;
@@ -35,25 +36,23 @@ public class LoginSteps extends BaseClass {
 
     @Then("User is logged in successfully")
     public void userIsLoggedInSuccessfully() {
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals("https://tutorialsninja.com/demo/index.php?route=account/account", url);
+        HomePage.validateLogin("My Account");
     }
 
-    @Given("User enters invalid username in the username field")
-    public void userEntersInvalidUsernameInTheUsernameField() {
-        String badUsername = userProperties.getProperty("badUsername");
+    @Given("^User enters invalid (.*) in the username field$")
+    public void userEntersInvalidUsernameInTheUsernameField(String badUsername) {
+//        String badUsername = userProperties.getProperty("badUsername");
         LoginPage.enterBadUserName(badUsername);
     }
 
-    @And("User enters invalid password in the password field")
-    public void userEntersInvalidPasswordInThePasswordField() {
-        String badPassword = userProperties.getProperty("badPassword");
+    @And("^User enters invalid (.*) in the password field$")
+    public void userEntersInvalidPasswordInThePasswordField(String badPassword) {
+//        String badPassword = userProperties.getProperty("badPassword");
         LoginPage.enterBadPassword(badPassword);
     }
 
-    @Then("User is NOT logged into the application")
-    public void userIsNOTLoggedIntoTheApplication() {
-        String url = driver.getCurrentUrl();
-        Assert.assertNotEquals("https://www.saucedemo.com/inventory.html", url);
+    @Then("^error (.*) is displayed$")
+    public void userIsNOTLoggedIntoTheApplication(String errorMessage) {
+        LoginPage.validateErrorMessage(errorMessage);
     }
 }

@@ -1,8 +1,15 @@
 package com.qascript.utils;
 
 import com.qascript.BaseClass;
+//import Assert;
+import dev.failsafe.internal.util.Assert;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,15 +30,27 @@ public class BrowserUtils extends BaseClass {
     }
 
     public static WebElement findAndWaitForElement(String xpath){
-        String timeout = properties.getProperty("timeout.maximum").toString();
+        String timeout = properties.getProperty("timeout.maximum");
+        Long duration = Long.parseLong(timeout);
         WebElement element = null;
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.getInteger(timeout)));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
             element = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath))));
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return element;
+    }
+
+    public static void validateText(String element, String expectedText){
+
+        System.out.println("element:" + element + " | expected:" + expectedText);
+        String actualText = findAndWaitForElement(element).getText();
+        System.out.println("element:" + element + " | actual:" + actualText);
+
+        Boolean boo = actualText.equals(expectedText);
+        System.out.println(boo.toString());
+        Assert.isTrue(actualText.equals(expectedText), "Actual does not match expected");
     }
 }
