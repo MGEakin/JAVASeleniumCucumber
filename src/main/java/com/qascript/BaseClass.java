@@ -13,11 +13,10 @@ public class BaseClass {
     public static void initializeDriver() {
         Properties properties = PropertyUtil.loadApplicationProperties();
         String url = properties.get("applicationURL").toString();
-        System.out.println(url);
+//        System.out.println(url);
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get(url);
-//        driver.get("https://www.tutorialsninja.com/demo/index.php?route=account/login");
         driver.manage().window().maximize();
     }
 
