@@ -55,4 +55,12 @@ public class LoginSteps extends BaseClass {
     public void userIsNOTLoggedIntoTheApplication(String errorMessage) {
         LoginPage.validateErrorMessage(errorMessage);
     }
+
+    @Given("User is logged into the application")
+    public void userIsLoggedIntoTheApplication() {
+        userEntersValidUsernameInTheUsernameField();
+        userEntersValidPasswordInThePasswordField();
+        userClicksTheLoginButton();
+        userIsLoggedInSuccessfully();
+    }
 }

@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,6 +25,13 @@ public class BrowserUtils extends BaseClass {
         findAndWaitForElement(element).click();
     }
 
+    public static void hoverElement(String element1, String element2){
+        WebElement e1 = findAndWaitForElement(element1);
+        WebElement e2 = findAndWaitForElement(element2);
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(e1).click(e2).build().perform();
+    }
     public static void enterText(String element, String text){
         findAndWaitForElement(element).clear();
         findAndWaitForElement(element).sendKeys(text);
