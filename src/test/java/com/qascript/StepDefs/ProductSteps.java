@@ -17,7 +17,7 @@ public class ProductSteps {
     @When("user clicks on Add to Cart button for Macbook")
     public void userClicksOnAddToCartButtonForMacbook() {
         ProductPage.validateProduct("MacBook");
-        ProductPage.validatePrice("$602.00");
+        ProductPage.validatePrice("$500.00");
         ProductPage.clickAddToCart();
     }
 
@@ -25,8 +25,9 @@ public class ProductSteps {
     public void macbookIsAddedToTheShoppingCart() {
         ShoppingCartPage.validateProductName("MacBook");
         ShoppingCartPage.validateQuantity("2");
-        ShoppingCartPage.validatePrice("$602.00");
-        ShoppingCartPage.validateTotalPrice("$1,204.00");
+        ShoppingCartPage.validatePrice("$500.00");
+        ShoppingCartPage.validateTotalPrice("$1,000.00");
+        HomePage.clearCart();
     }
 
     @And("user clicks on Macbook")
@@ -42,5 +43,15 @@ public class ProductSteps {
     @And("user clicks on Shopping Cart link")
     public void userClicksOnShoppingCartLink() {
         HomePage.clickShoppingCart();
+    }
+
+    @And("User adds product to the Shopping Cart")
+    public void userAddsProductToTheShoppingCart() {
+        userClicksOnShowAllNotebooksAndLaptops();
+        userClicksOnMacbook();
+        userEntersQuantity();
+        userClicksOnAddToCartButtonForMacbook();
+        userClicksOnShoppingCartLink();
+
     }
 }

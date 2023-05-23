@@ -37,6 +37,7 @@ public class LoginSteps extends BaseClass {
     @Then("User is logged in successfully")
     public void userIsLoggedInSuccessfully() {
         HomePage.validateLogin("My Account");
+        HomePage.clearCart();
     }
 
     @Given("^User enters invalid (.*) in the username field$")

@@ -6,17 +6,28 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class BrowserUtils extends BaseClass {
 
     static Properties properties = PropertyUtil.loadFrameworkProperties();
 
+    public static void clickRadio(String element) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(3);
+        WebElement web = findAndWaitForElement(element);
+        web.click();
+    }
     public static void clickElement(String element){
         findAndWaitForElement(element).click();
+    }
+    public static void selectElement(String element, String selectValue){
+        Select drpElement = new Select(driver.findElement(By.xpath(element)));
+        drpElement.selectByVisibleText(selectValue);
     }
 
     public static void hoverElement(String element1, String element2){

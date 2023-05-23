@@ -37,5 +37,4 @@ public class ShoppingCartPage extends BaseClass {
     public static void validateTotalPrice(String expectedTotalPrice) {
         BrowserUtils.validateText(txtTotalPrice, expectedTotalPrice);
     }
-
 }
