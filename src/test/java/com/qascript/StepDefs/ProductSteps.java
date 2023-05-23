@@ -2,6 +2,7 @@ package com.qascript.StepDefs;
 
 import com.qascript.PageObjects.HomePage;
 import com.qascript.PageObjects.ProductPage;
+import com.qascript.PageObjects.ShoppingCartPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,7 +23,10 @@ public class ProductSteps {
 
     @Then("Macbook is added to the shopping cart")
     public void macbookIsAddedToTheShoppingCart() {
-        ProductPage.clickAddToCart();
+        ShoppingCartPage.validateProductName("MacBook");
+        ShoppingCartPage.validateQuantity("2");
+        ShoppingCartPage.validatePrice("$602.00");
+        ShoppingCartPage.validateTotalPrice("$1,204.00");
     }
 
     @And("user clicks on Macbook")
@@ -37,6 +41,6 @@ public class ProductSteps {
 
     @And("user clicks on Shopping Cart link")
     public void userClicksOnShoppingCartLink() {
-        ProductPage.clickShoppingCartLink();
+        HomePage.clickShoppingCart();
     }
 }

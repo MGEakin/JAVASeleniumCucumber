@@ -3,6 +3,7 @@ Feature: Add Products to Shopping Cart
   Background:
     Given User is logged into the application
 
+  @functional
   Scenario: User is able to add products into the Shopping cart
     Given user clicks on Show All Notebooks and Laptops
     And user clicks on Macbook

@@ -1,15 +1,9 @@
 package com.qascript.utils;
 
 import com.qascript.BaseClass;
-//import Assert;
 import dev.failsafe.internal.util.Assert;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,10 +21,10 @@ public class BrowserUtils extends BaseClass {
 
     public static void hoverElement(String element1, String element2){
         WebElement e1 = findAndWaitForElement(element1);
-        WebElement e2 = findAndWaitForElement(element2);
+//        WebElement e2 = findAndWaitForElement(element2);
 
         Actions actions = new Actions(driver);
-        actions.moveToElement(e1).click(e2).build().perform();
+        actions.moveToElement(e1).click(driver.findElement(By.xpath(element2))).build().perform();
     }
     public static void enterText(String element, String text){
         findAndWaitForElement(element).clear();
@@ -39,7 +33,7 @@ public class BrowserUtils extends BaseClass {
 
     public static WebElement findAndWaitForElement(String xpath){
         String timeout = properties.getProperty("timeout.maximum");
-        Long duration = Long.parseLong(timeout);
+        long duration = Long.parseLong(timeout);
         WebElement element = null;
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
@@ -52,13 +46,16 @@ public class BrowserUtils extends BaseClass {
     }
 
     public static void validateText(String element, String expectedText){
-
-        System.out.println("element:" + element + " | expected:" + expectedText);
         String actualText = findAndWaitForElement(element).getText();
-        System.out.println("element:" + element + " | actual:" + actualText);
+        System.out.println("Actual Text:" + actualText + " | Expected Text:" + expectedText);
+        Assert.isTrue(actualText.equals(expectedText),
+                "Actual Text (" + actualText + ") does not match expected:" + expectedText);
+    }
 
-        Boolean boo = actualText.equals(expectedText);
-        System.out.println(boo.toString());
-        Assert.isTrue(actualText.equals(expectedText), "Actual does not match expected");
+    public static void validateValue(String element, String expectedValue, String attributeType){
+        String actualValue = findAndWaitForElement(element).getAttribute(attributeType);
+        System.out.println("Actual Value:" + actualValue + " | Expected Value:" + expectedValue);
+        Assert.isTrue(actualValue.equals(expectedValue),
+                "Actual Value (" + actualValue + ") does not match expected:" + expectedValue);
     }
 }
