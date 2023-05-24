@@ -13,8 +13,8 @@ import org.junit.runner.RunWith;
                 "pretty",
                 "html:target/cucumber.html",
                 "json:target/cucumber.json"
-        },
-        tags = "@functional"
+        }
+//        tags = "@functional"
 //        publish = true
 )
 public class TestRunner {

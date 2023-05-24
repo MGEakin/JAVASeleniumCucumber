@@ -1,4 +1,4 @@
-@functional
+@regression
 Feature: Checkout Products
 
   Background:

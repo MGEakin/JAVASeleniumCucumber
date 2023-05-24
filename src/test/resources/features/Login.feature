@@ -1,7 +1,7 @@
 @regression
 Feature: User Login
 
-  @smoke
+  @smoke @functional
   Scenario: User is able to login with valid credentials
     Given User enters valid username in the username field
     And User enters valid password in the password field
